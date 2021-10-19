@@ -1,10 +1,27 @@
 <script lang="ts">
-	export let name: string;
+  // この値をinputで書き換えるのでletを使わなければいけないの微妙
+	let text = "Svelte";
+  // const handleChange = (e) => {
+  //   text = e.target.value
+  // }
+
+  let count = 0;
+  const handleClick = () => count++
+
+  let isActive = false;
+  const toggle = () => isActive = !isActive
 </script>
 
 <main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
+	<h1>Hello {text}!</h1>
+  <!-- svelteではこっちの方がレスコードで推奨 -->
+  <input type=text bind:value={text}>
+  <!-- <input type=text on:input={handleChange}> -->
+
+  <input type=number bind:value={count}>
+  <button on:click={handleClick}>+</button>
+
+  <button class:active={isActive} on:click={toggle}>いいね</button>
 </main>
 
 <style>
@@ -27,4 +44,9 @@
 			max-width: none;
 		}
 	}
+
+  .active {
+    background-color: #ff3e00;
+    color: white;
+  }
 </style>
